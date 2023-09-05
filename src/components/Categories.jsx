@@ -106,11 +106,15 @@ const Categories = () => {
 
   return (
     <>
-    { role === 'admin' &&
-      <div className='d-flex justify-content-end mb-3'>
-        <Button onClick={handleShow} >Agregar Categoria</Button>
-      </div>
-    }
+    <div className='d-flex justify-content-between'>
+      <h3 className='mt-1 mb-3 ms-1'>Categorias</h3>
+      { role === 'admin' &&
+        <div className='d-flex justify-content-end mb-3'>
+          <Button onClick={handleShow} variant='success'>
+            + Agregar Categoría</Button>
+        </div>
+      }
+    </div>
     {errorPage && <Alert variant="danger">{errorPage}</Alert>}
       <Row md={2} xs={1} lg={3} className="g-3">
         {categories.map((item) =>(
@@ -130,7 +134,8 @@ const Categories = () => {
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Modal.Body>
-            <Form.Group>
+            <Form.Group className="mb-4">
+                <Form.Label>Título</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Titulo"
@@ -140,9 +145,11 @@ const Categories = () => {
                     autoFocus
                     required/>
             </Form.Group>
-            <Form.Group>
+            <Form.Group className="mb-4">
+                <Form.Label>Imagen</Form.Label>
                 <Form.Control
-                    type="text"
+                    as="textarea"
+                    rows={3}
                     placeholder="Url de Imagen"
                     name="image"
                     value={dataCategory.image}
@@ -169,7 +176,8 @@ const Categories = () => {
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmitEdit}>
             <Modal.Body>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Título</Form.Label>
                   <Form.Control
                       type="text"
                       placeholder="Titulo"
@@ -179,9 +187,11 @@ const Categories = () => {
                       autoFocus
                       required />
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Imagen</Form.Label>
                   <Form.Control
-                      type="text"
+                      as="textarea"
+                      rows={3}
                       placeholder="Url de Imagen"
                       name="image"
                       value={dataCategoryEdit.image}

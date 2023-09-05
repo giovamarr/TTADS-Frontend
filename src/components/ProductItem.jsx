@@ -8,13 +8,13 @@ import { useAuth } from "../context/AuthContext"
     const { role } = useAuth()
 
     return (
-      <Card className="h-100" >
+      <Card className="h-100 " style={{"boxShadow": "20px 20px 30px rgba(0,0,0,0.03)"}} >
         {/* Dropdown menu for editing or deleting */}
         { role === 'admin' && 
 
         <div className="d-flex justify-content-end">
         <Dropdown >
-          <Dropdown.Toggle variant="primary" >
+          <Dropdown.Toggle variant="outline-danger" >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
             <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
           </svg>
@@ -54,13 +54,14 @@ import { useAuth } from "../context/AuthContext"
         }
        
         <Card.Body className="d-flex flex-column">
-        <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
-          <span className="fs-2">{item.title}</span>
+        <Card.Title className="d-flex justify-content-between align-items-baseline mb-2">
+          <h4 className="fs-2 mt-1 text-center">{item.title}</h4>
           <span className="ms-2 text-muted">$ {item.price}</span>
         </Card.Title>
-        <div className="mt-auto">
+        <span className="mb-3 text-muted">{item.description}</span>
+        <div className="mt-auto mb-1">
           {quantity === 0 ? (
-            <Button className="w-100" onClick={() => increaseSaleProductsQuantity(item._id, item.title, item.image, item.price)}>
+            <Button className="w-100" variant="outline-primary" onClick={() => increaseSaleProductsQuantity(item._id, item.title, item.image, item.price)}>
               + Agregar
             </Button>
           ) : (

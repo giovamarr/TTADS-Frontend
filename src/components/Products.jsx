@@ -108,11 +108,16 @@ const Products = ({categoryId}) => {
     
   return (
     <>
-    { role === 'admin' && 
-    <div className='d-flex justify-content-end mb-3'>
-      <Button onClick={handleShow} >Agregar Producto</Button>
-    </div>
-}
+      <div className='d-flex justify-content-between'>
+        <h3 className='mt-1 mb-3 ms-1'>Productos</h3>
+
+        { role === 'admin' && 
+        <div className='d-flex justify-content-end mb-3'>
+          <Button variant='success' onClick={handleShow} >+ Agregar Producto</Button>
+        </div>
+        }
+      </div>
+
     {errorPage && <Alert variant="danger">{errorPage}</Alert>}
       <Row md={2} xs={1} lg={3} className="g-3">
           {products.map((item) =>(
@@ -133,26 +138,29 @@ const Products = ({categoryId}) => {
 
           <Form onSubmit={handleSubmit}>
             <Modal.Body>
-              <Form.Group>
-                  <Form.Control
-                      type="text"
-                      placeholder="Titulo"
-                      name="title"
-                      value={dataProduct.title}
-                      onChange = { handleChangeProduct}
-                      autoFocus
-                      required
-                  />
+              <Form.Group className="mb-4">
+                <Form.Label>Título</Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder="Titulo"
+                    name="title"
+                    value={dataProduct.title}
+                    onChange = { handleChangeProduct}
+                    autoFocus
+                    required
+                />
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Descripción</Form.Label>
                   <Form.Control
                       type="text"
-                      placeholder="Descripcion"
+                      placeholder="Descripción"
                       name="description"
                       value={dataProduct.description}
                       onChange = { handleChangeProduct}/>
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Precio</Form.Label>
                   <Form.Control
                       type="number"
                       placeholder="Precio"
@@ -160,9 +168,11 @@ const Products = ({categoryId}) => {
                       value={dataProduct.price}
                       onChange = { handleChangeProduct}/>
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Imagen</Form.Label>
                   <Form.Control
-                      type="text"
+                      as="textarea"
+                      rows={3}
                       placeholder="Url de Imagen"
                       name="image"
                       value={dataProduct.image}
@@ -190,7 +200,9 @@ const Products = ({categoryId}) => {
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmitEdit}>
             <Modal.Body>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Título</Form.Label>
+
                   <Form.Control
                       type="text"
                       placeholder="Titulo"
@@ -200,7 +212,8 @@ const Products = ({categoryId}) => {
                       autoFocus
                       required/>
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Descripción</Form.Label>
                   <Form.Control
                       type="text"
                       placeholder="Descripcion"
@@ -208,7 +221,8 @@ const Products = ({categoryId}) => {
                       value={dataProductEdit.description}
                       onChange = { handleChangeProductEdit}/>
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Precio</Form.Label>
                   <Form.Control
                       type="text"
                       placeholder="Precio"
@@ -217,9 +231,12 @@ const Products = ({categoryId}) => {
                       onChange = { handleChangeProductEdit}/>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
+                  <Form.Label>Imagen</Form.Label>
+
                   <Form.Control
-                      type="text"
+                      as="textarea"
+                      rows={3}
                       placeholder="Url de Imagen"
                       name="image"
                       value={dataProductEdit.image}

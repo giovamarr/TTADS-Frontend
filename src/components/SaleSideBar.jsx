@@ -7,7 +7,6 @@ import { createSale } from '../actions/sale.js'
 const OrderSideBar = ({isOpen }) => {
     const { closeSideBar, saleProducts, increaseSaleProductsQuantity, decreaseSaleProductsQuantity, removeProductFromSale, removeAllProductsFromSale } = useSaleContext()
     const [error, setError] = useState("")
-      
 
     async function handleSubmit() {
       setError("")
@@ -40,24 +39,24 @@ const OrderSideBar = ({isOpen }) => {
             <div className="d-flex align-items-center flex-column" style={{ gap: ".5rem" }}>
               <b>{item.title}{" "}$ {item.price}</b> 
               <div className="d-flex align-items-center justify-content-center" style={{ gap: ".5rem" }}>
-                <Button onClick={() => decreaseSaleProductsQuantity(item.id)}>-</Button>
+                <Button className='btn-sm' onClick={() => decreaseSaleProductsQuantity(item.id)}>-</Button>
                 <div>
                   <span className="fs-3">{item.quantity}</span>
                 </div>
-                <Button onClick={() => increaseSaleProductsQuantity(item.id)}>+</Button>
+                <Button className='btn-sm' onClick={() => increaseSaleProductsQuantity(item.id)}>+</Button>
                 <div>
                   $ {item.price * item.quantity}
                 </div>
-                <Button onClick={() => removeProductFromSale(item.id)}>
-                  Borrar
+                <Button className='btn-danger btn-sm' onClick={() => removeProductFromSale(item.id)}>
+                  X
                 </Button>
 
               </div>
             </div>
           </Stack>
           ))}
-          {saleProducts.length > 0 &&          
-          <Button className="w-100 mt-4" onClick={() => handleSubmit()}>
+          {saleProducts.length > 0 &&
+          <Button className="btn-success w-100 mt-4" onClick={() => handleSubmit()}>
               Comprar
           </Button>
           }

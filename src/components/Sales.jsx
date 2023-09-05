@@ -19,6 +19,7 @@ const Sales = () => {
 
   return (
     <div>
+        <h3 className='text-center mt-1 mb-3'>Mis Compras</h3>
         <Row md={1} xs={1} lg={1} className="g-4">
         {errorPage && <Alert variant="danger">{errorPage}</Alert>}
         {sales.map((sale) =>(

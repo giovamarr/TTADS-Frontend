@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { register } from "../actions/auth.js";
 import { useNavigate } from "react-router-dom"
@@ -13,8 +13,9 @@ const Register = () => {
 
   async function handleSubmit(e) {
     e.preventDefault()
-      setError("")
-      setLoading(true)
+    setError("")
+    setLoading(true)
+    try{
       const result = await register(dataRegister);
       const res = await result.json()
       if (!result.ok){
@@ -22,8 +23,11 @@ const Register = () => {
       }else{
         history("/login")
       }
-    setLoading(false)
-  }
+    }catch{
+      setError("Ha ocurrido un error")
+    }
+  setLoading(false)
+}
 
 
   const handleChangeRegister = (e) => {
@@ -35,16 +39,14 @@ const Register = () => {
   };
 
   return (
-    <>
-      <Card>
+    <Container className="d-flex align-items-center justify-content-center w-100" style={{"min-height" : "80vh", "flex-direction": "column"}}>
+      <Card className=" w-50">
         <Card.Body>
           <h2 className="text-center mb-4">Registrarse</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
+            <Form.Group id="email" className="mb-4">
               <Form.Label>Email</Form.Label>
-              <Form.Group id="password">
-              <Form.Label>Nombre</Form.Label>
               <Form.Control
                   type="text"
                   placeholder="Ingresa tu nombre.."
@@ -55,6 +57,8 @@ const Register = () => {
                   maxLength={45}
                   required/>        
               </Form.Group>
+              <Form.Group id="password" className="mb-4">
+              <Form.Label>Nombre</Form.Label>
               <Form.Control
                   type="text"
                   placeholder="Ingresa tu email.."
@@ -66,8 +70,8 @@ const Register = () => {
                   autoFocus
                   required/>
             </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
+            <Form.Group id="password" className="mb-4">
+              <Form.Label>Contraseña</Form.Label>
               <Form.Control
                   type="password"
                   placeholder="Ingresa tu contraseña.."
@@ -86,9 +90,9 @@ const Register = () => {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Ya tenes cuenta? <Link to="/login">Ingresar</Link>
+        Ya tenés cuenta? <Link to="/login">Ingresar</Link>
       </div>
-    </>
+    </Container>
   )
 }
 

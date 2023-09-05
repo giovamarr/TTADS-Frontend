@@ -4,24 +4,25 @@ import { Card  } from "react-bootstrap"
 const SaleItem = ({sale}) => {
     const date = new Date(sale.date)
     return (
-    
-    <Card className="h-100" >
+    <div className='d-flex justify-content-center'>
+
+    <Card className="h-100 w-75 " >
     <Card.Body className="d-flex flex-column">
         <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
-            <span>Total: ${sale.totalPrice} </span>
-            <span>Fecha: {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}hs`}</span>
+            <h5><b>Total:</b> ${sale.totalPrice} </h5>
+            <h5><b>Fecha:</b> {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}hs`}</h5>
         </Card.Title>
-        Productos comprados:
             { sale.products.map((e)  => (
-                <div className='d-flex justify-content-center'>
-                    <span className="fs-5">{e.quantity}</span>
-                    <span className="fs-5"> {e.product?.title} </span>
-                    <span className="fs-5"> ($ {e.price} )</span>
+                <div className='d-flex justify-content-evenly'>
+                    <p className=""><b>Producto</b>: {e.product?.title}  </p>
+                    <p> <b>Cantidad:</b> {e.quantity}</p>
+                    <p>Precio: $ {e.price}</p>
                 </div>
             ))
             }
     </Card.Body>
     </Card>
+    </div>
 
     )
 }

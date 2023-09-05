@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { login } from "../actions/auth.js";
 import { useNavigate } from "react-router-dom"
@@ -16,14 +16,18 @@ const Login = () => {
       e.preventDefault()
       setError("")
       setLoading(true)
-      const result = await login(dataLogin);
-      const res = await result.json()
-      if (!result.ok){
-        setError(res["message"])
-      }else{
-        loginUser(res["token"])
-        history("/")
-      }
+      try{
+        const result = await login(dataLogin);
+        const res = await result.json()
+        if (!result.ok){
+          setError(res["message"])
+        }else{
+          loginUser(res["token"])
+          history("/")
+        }
+      }catch{
+          setError("Ha ocurrido un error");
+        }
       setLoading(false)
   }
 
@@ -37,15 +41,15 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Card>
+    <Container className="d-flex align-items-center justify-content-center w-100" style={{"min-height" : "80vh", "flex-direction": "column"}}>
+      <Card className=" w-50">
         <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
+          <h2 className="text-center mb-4">
+            Ingresar</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
+            <Form.Group id="email" className="mb-4">
               <Form.Label>Email</Form.Label>
-              {/* <Form.Control type="email" ref={emailRef} required /> */}
               <Form.Control
                   type="text"
                   placeholder="Ingresa tu email.."
@@ -58,8 +62,8 @@ const Login = () => {
                   required
                 />
             </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
+            <Form.Group id="password" className="mb-4">
+              <Form.Label>Contraseña</Form.Label>
               <Form.Control
                   type="password"
                   placeholder="Ingresa tu contraseña.."
@@ -79,9 +83,9 @@ const Login = () => {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        No tenes cuenta? <Link to="/register">Registarse</Link>
+        No tenés cuenta? <Link to="/register">Registarse</Link>
       </div>
-    </>
+    </Container>
   )
 }
 

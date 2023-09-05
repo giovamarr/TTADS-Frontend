@@ -12,15 +12,15 @@ const Users = () => {
             setUsers(data);
         })
         .catch((e) => {
-          setErrorPage("No se pudieron cargar las ventas")
+          setErrorPage("No se pudieron cargar los usuarios")
         });
     }, []);
 
   return (
     <div>
+        <h3 className='text-center mt-2 mb-3 ms-1'>Usuarios</h3>
         {errorPage && <Alert variant="danger">{errorPage}</Alert>}
-        <h3>Usuarios</h3>
-        <Table striped bordered hover>
+        <Table striped bordered hover >
             <thead>
                 <tr>
                 <th>Nombre</th>
@@ -28,16 +28,16 @@ const Users = () => {
                 <th>Rol</th>
                 </tr>
             </thead>
-      {users.map((user) =>(
       <tbody>
+      {users.map((user) =>(
 
         <tr>
           <td>{user.name}</td>
           <td>{user.email}</td>
           { user.role === 'admin' ?  <td>Admin</td> :  <td>Cliente</td>}
         </tr>
-      </tbody>
       ))}
+      </tbody>
     </Table>
 
 
