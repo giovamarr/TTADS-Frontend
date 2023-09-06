@@ -46,7 +46,7 @@ const Register = () => {
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email" className="mb-4">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Nombre</Form.Label>
               <Form.Control
                   type="text"
                   placeholder="Ingresa tu nombre.."
@@ -58,7 +58,7 @@ const Register = () => {
                   required/>        
               </Form.Group>
               <Form.Group id="password" className="mb-4">
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                   type="text"
                   placeholder="Ingresa tu email.."
