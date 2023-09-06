@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# TP Frontend TTADS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Autor: Giovanni, Martin - 44912
 
-## Available Scripts
+El trabajo a realizar se trata de una aplicacion de venta comercial que cuenta con las diferentes funciones necesarias para un comercio de cualquier indole. Permitirá administrar categorias, productos ventas, compras, usuarios. 
 
-In the project directory, you can run:
+### Usuario
+El sistema cuenta con dos diferentes tipos de usuarios: Cliente Y Administrador. El cliente es capaz de ver un listado de las Categorias, sus productos y realizar compras de los mismos. El administrador es capaz de ver todas las entidades del sistema y realizar un ABM de las mismas. La manera de autenticar los usuarios consiste un login con JWT.
 
-### `npm start`
+### Categoría
+Consiste en una entidad simple para poder agrupar los productos.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Producto
+Consiste en una entidad dependiente de categoía.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Compra
+Consiste en un conjunto de productos con su cantidad y un usuario que efectúa la compra.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+|Requerimiento funcional|cant. mín.<br>1 o 2 integ|cant. máx.<br>3 o 4 integ|Detalle/Listado de casos|Cumple|
+|:-|-:|-:|:-|-|
+|ABMC simple|1 x integ|1 x integ|Categoría, Usuario|
+|ABMC dependiente|1|2|Producto, Venta|
+|Listado simple|1|1|Categoría|
+|Listado complejo obligatorio|1|2|Productos (Categorias), Ventas (Productos, Usuario)|
+|Listado adicional con filtro|0|0|Ninguno|
+|Detalle básico|1(*)|2(*)|Categoria, Usuario|
+|Detalle parametrizable|0|0|-|
+|Otros|0|0||
 
-### `npm run build`
+### Modelo de Dominio
+<img src="https://github.com/giovamarr/TTADS-Backend/assets/51095800/3c625df4-7879-4b73-8790-9aa16690a084" />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Tecnologias y Herramientas Utilizadas:
+#### Frontend
+  * React
+  * Bootstrap
+  * Npm
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Backend
+  * Express Js
+  * TypeScript
+  * Pnpm
+  * MongoDB
+  * JsonWebToken
