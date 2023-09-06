@@ -29,6 +29,22 @@ export const AuthProvider = ({ children }) =>{
     localStorage.removeItem("jwt");
   };
 
+  function isAuthenticate () {
+    if (currentUser){
+      return true
+    }
+    const token = localStorage.getItem("jwt");
+    if (token){
+      localStorage.setItem("jwt", token);
+      setCurrentUser(token)
+      return true
+    }
+    return false
+  }
+
+
+
+
   async function isAuth () {
     if (currentUser){
       return true
@@ -52,7 +68,7 @@ export const AuthProvider = ({ children }) =>{
   }
 
   return (
-    <AuthContext.Provider value={{isAuth, currentUser, loginUser, logout, role }}>
+    <AuthContext.Provider value={{isAuth, currentUser, loginUser, logout, role, isAuthenticate }}>
       { children}
     </AuthContext.Provider>
   )
