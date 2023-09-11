@@ -1,73 +1,46 @@
-import { url } from "../config";
-
+import { deleteCall, getCall, postCall, putCall } from "../utils/calls.js";
 
 export const loadProductsByCategory = async (id) => {
-  const token = localStorage.getItem("jwt");
-  
-  const result = await fetch(url + "/product/category/"+ id, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-  
-      },
-      method: "GET",
-    });
+  try{
+    const result = await getCall("/product/category/"+ id);
     return result.json();
+  }catch(err){
+  console.log(err)
+}
   };
 
 export const loadOneProduct = async (id) => {
-    const token = localStorage.getItem("jwt");
-
-    const result = await fetch(url + "/product/"+ id, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-  
-      },
-      method: "GET",
-    });
+  try{
+    const result = await getCall("/product/"+ id);
     return result.json();
+  }catch(err){
+    console.log(err)
   };
-
+  }
 
 export const addProduct = async (data) => {
-    const token = localStorage.getItem("jwt");
-    const result = await fetch(url + "/product", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify( data)
-    });
+  try{
+    const result = await postCall("/product", data);
     return result;
-  }
+}catch(err){
+    console.log(err);
+};  
+}
 
-  export const editProduct = async (data) => {
-    const token = localStorage.getItem("jwt");
-    console.log(data)
-    const result = await fetch(url + "/product/" + data.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify( data)
-    });
+export const editProduct = async (data) => {
+  try{
+    const result = await putCall("/product/" + data.id, data);
     return result;
-  }
-
-
+}catch(err){
+    console.log(err);
+};  
+}
 
 export const deleteProduct = async (id) => {
-    const token = localStorage.getItem("jwt");
-    const result = await fetch(url + "/product/" + id, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
-    });
-    console.log(result)
+  try{
+    const result = await deleteCall("/product/" + id);
     return result;
-  }
+}catch(err){
+  console.log(err);
+};  
+}

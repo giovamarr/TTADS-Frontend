@@ -1,4 +1,5 @@
-import { url } from "../config";
+import { getCall } from "../utils/calls.js";
+import { URL } from "../config";
 
 export const login = async (data) => {
   try{
@@ -7,11 +8,10 @@ export const login = async (data) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify( data)
     };
-
-    const result = await fetch(url + "/login", requestOptions);
+    const result = await fetch(URL + "/login", requestOptions);
     return result;
   }catch(err){
-    console.log(err)
+    console.log(err);
   };  
 }
 
@@ -22,27 +22,19 @@ export const register = async (data) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify( data)
     };
-
-    const result = await fetch(url + "/register", requestOptions);
+    const result = await fetch(URL + "/register", requestOptions);
     return result;
   }catch(err){
-    console.log(err)
+    console.log(err);
   };  
 }
 
 export const getRole = async () => {  
   try{
-    const token = localStorage.getItem("jwt");
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const result = await fetch(url + "/role", requestOptions);
+    const result = await getCall("/role")
     return result;
   }catch(err){
-    console.log(err)
-  };  
+    console.log(err);
+  };
 }
 
