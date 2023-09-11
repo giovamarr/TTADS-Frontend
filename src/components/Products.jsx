@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ProductItem from './ProductItem'
 import { addProduct, editProduct, deleteProduct, loadProductsByCategory } from '../actions/product.js';
-import { Col, Row, Button, Modal, Form, Alert } from "react-bootstrap"
+import { Col, Row, Button, Alert } from "react-bootstrap"
 import { useSaleContext } from '../context/SaleContext.jsx';
 import { useAuth } from "../context/AuthContext"
+import ProductModal from './ProductModal.jsx';
 
 const Products = ({categoryId}) => {
     const { removeProductFromSale } = useSaleContext()
@@ -78,24 +79,6 @@ const Products = ({categoryId}) => {
           });
         }}
 
-
-  const handleChangeProduct = (e) => {
-    const value = e.target.value;
-    setDataProduct({
-        ...dataProduct,
-        [e.target.name]: value,
-      },[]);
-  };
-
-  const handleChangeProductEdit = (e) => {
-    const value = e.target.value;
-    setDataProductEdit({
-        ...dataProductEdit,
-        [e.target.name]: value,
-      });
-  };
-
-
     useEffect(() => {
         loadProductsByCategory(categoryId['categorId'])
           .then((data) => {
@@ -128,132 +111,27 @@ const Products = ({categoryId}) => {
       </Row>
 
       {/* Modal that opens for adding  */}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-            <Modal.Title>
-                Agregar
-            </Modal.Title>
-        </Modal.Header>
-          {error && <Alert variant="danger">{error}</Alert>}
-
-          <Form onSubmit={handleSubmit}>
-            <Modal.Body>
-              <Form.Group className="mb-4">
-                <Form.Label>Título</Form.Label>
-                <Form.Control
-                    type="text"
-                    placeholder="Titulo"
-                    name="title"
-                    value={dataProduct.title}
-                    onChange = { handleChangeProduct}
-                    autoFocus
-                    required
-                />
-              </Form.Group>
-              <Form.Group className="mb-4">
-                  <Form.Label>Descripción</Form.Label>
-                  <Form.Control
-                      type="text"
-                      placeholder="Descripción"
-                      name="description"
-                      value={dataProduct.description}
-                      onChange = { handleChangeProduct}/>
-              </Form.Group>
-              <Form.Group className="mb-4">
-                  <Form.Label>Precio</Form.Label>
-                  <Form.Control
-                      type="number"
-                      placeholder="Precio"
-                      name="price"
-                      value={dataProduct.price}
-                      onChange = { handleChangeProduct}/>
-              </Form.Group>
-              <Form.Group className="mb-4">
-                  <Form.Label>Imagen</Form.Label>
-                  <Form.Control
-                      as="textarea"
-                      rows={3}
-                      placeholder="Url de Imagen"
-                      name="image"
-                      value={dataProduct.image}
-                      onChange = { handleChangeProduct}/>
-              </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-                Cancelar
-          </Button>
-          <Button variant="success" type="submit" block>
-              Agregar
-          </Button>
-        </Modal.Footer>
-          </Form>
-      </Modal>
-      
+          <ProductModal 
+          show={show} 
+          handleSubmit={handleSubmit}
+          handleClose={handleClose} 
+          dataProduct={dataProduct}
+          setProducts={setProducts} 
+          error={error}
+          setDataProduct={setDataProduct}
+          setErrorPage={setErrorPage}
+          />
       {/* Modal that opens for editing  */}
-      <Modal show={showEdit} onHide={handleCloseEdit}>
-        <Modal.Header closeButton>
-            <Modal.Title>
-                Editar
-            </Modal.Title>
-        </Modal.Header>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmitEdit}>
-            <Modal.Body>
-              <Form.Group className="mb-4">
-                  <Form.Label>Título</Form.Label>
-
-                  <Form.Control
-                      type="text"
-                      placeholder="Titulo"
-                      name="title"
-                      value={dataProductEdit.title}
-                      onChange = { handleChangeProductEdit}
-                      autoFocus
-                      required/>
-              </Form.Group>
-              <Form.Group className="mb-4">
-                  <Form.Label>Descripción</Form.Label>
-                  <Form.Control
-                      type="text"
-                      placeholder="Descripcion"
-                      name="description"
-                      value={dataProductEdit.description}
-                      onChange = { handleChangeProductEdit}/>
-              </Form.Group>
-              <Form.Group className="mb-4">
-                  <Form.Label>Precio</Form.Label>
-                  <Form.Control
-                      type="text"
-                      placeholder="Precio"
-                      name="price"
-                      value={dataProductEdit.price}
-                      onChange = { handleChangeProductEdit}/>
-              </Form.Group>
-
-              <Form.Group className="mb-4">
-                  <Form.Label>Imagen</Form.Label>
-
-                  <Form.Control
-                      as="textarea"
-                      rows={3}
-                      placeholder="Url de Imagen"
-                      name="image"
-                      value={dataProductEdit.image}
-                      onChange = { handleChangeProductEdit}/>
-              </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEdit}>
-              Cancelar
-          </Button>
-          <Button variant="success" type="submit" block>
-              Confirmar
-          </Button>
-        </Modal.Footer>
-      </Form>
-      </Modal>
-
+      <ProductModal 
+          show={showEdit} 
+          handleSubmit={handleSubmitEdit}
+          handleClose={handleCloseEdit} 
+          dataProduct={dataProductEdit}
+          setProducts={setProducts} 
+          error={error}
+          setDataProduct={setDataProductEdit}
+          setErrorPage={setErrorPage}
+          />
     </>
     )
 }
