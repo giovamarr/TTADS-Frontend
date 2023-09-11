@@ -1,14 +1,10 @@
-import { url } from "../config";
+import { getCall } from "../utils/calls.js";
 
 export const loadUsers = async () => {
-    const token = localStorage.getItem("jwt");
-    const result = await fetch(url + "/admin/user/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-
-      },
-    });
+  try{
+    const result = await getCall("/admin/user/");
     return result.json();
-  };
+}catch(err){
+    console.log(err)
+};  
+}

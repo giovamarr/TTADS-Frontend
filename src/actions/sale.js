@@ -1,30 +1,19 @@
-import { url } from "../config";
-
+import { getCall, postCall } from "../utils/calls.js";
 
 export const loadSalesUser = async () => {
-  const token = localStorage.getItem("jwt");
-  const result = await fetch(url + "/sale/user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-
-    },
-  });
-  return result.json();
-};
-
-
+  try{
+    const result = await getCall("/sale/user");
+    return result.json();
+}catch(err){
+    console.log(err)
+};  
+}
 
 export const createSale = async (data) => {
-    const token = localStorage.getItem("jwt");
-    const result = await fetch(url + "/sale", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify( {"products": data})
-    });
+  try{
+    const result = await postCall("/sale", {"products": data});
     return result;
-  };
+}catch(err){
+    console.log(err);
+};  
+}
