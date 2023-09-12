@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Row, Button, Modal, Form, Alert } from "react-bootstrap"
+import { Col, Row, Button, Alert } from "react-bootstrap"
 import { addCategory, editCategory, loadCategories, deleteCategory } from "../actions/category.js";
 import CategoryItem from './CategoryItem'
 import { useAuth } from "../context/AuthContext"
+import CategoryModal from './CategoryModal.jsx';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -36,26 +37,6 @@ const Categories = () => {
       })
     }}
 
-    async function handleSubmit(e) {
-      e.preventDefault()
-      setError("")
-      const result = await addCategory(dataCategory);
-      const res = await result.json()
-      if (!result.ok){
-        setError(res["message"])
-      }else{
-      handleClose();
-      loadCategories()
-        .then((data) => {
-            setCategories(data);
-            setDataCategory({title: "", image: ""})
-        })
-        .catch((e) => {
-          setErrorPage("No se pudieron cargar las categorias")
-        });
-      }
-    }
-
       async function handleSubmitEdit(e) {
         e.preventDefault()
         setError("")
@@ -75,23 +56,25 @@ const Categories = () => {
           });
         }}
 
-
-  const handleChangeCategory = (e) => {
-    const value = e.target.value;
-    setDataCategory({
-        ...dataCategory,
-        [e.target.name]: value,
-      });
-  };
-
-  const handleChangeCategoryEdit = (e) => {
-    const value = e.target.value;
-    setDataCategoryEdit({
-        ...dataCategoryEdit,
-        [e.target.name]: value,
-      });
-  };
-
+        async function handleSubmit(e) {
+          e.preventDefault()
+          setError("")
+          const result = await addCategory(dataCategory);
+          const res = await result.json()
+          if (!result.ok){
+            setError(res["message"])
+          }else{
+          handleClose();
+          loadCategories()
+            .then((data) => {
+                setCategories(data);
+                setDataCategory({title: "", image: ""})
+            })
+            .catch((e) => {
+              setErrorPage("No se pudieron cargar las categorias")
+            });
+          }
+        }
 
     useEffect(() => {
       loadCategories()
@@ -125,89 +108,27 @@ const Categories = () => {
       </Row>
 
       {/* Modal that opens for adding  */}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-            <Modal.Title>
-                Agregar
-            </Modal.Title>
-        </Modal.Header>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Modal.Body>
-            <Form.Group className="mb-4">
-                <Form.Label>Título</Form.Label>
-                <Form.Control
-                    type="text"
-                    placeholder="Titulo"
-                    name="title"
-                    value={dataCategory.title}
-                    onChange = { handleChangeCategory}
-                    autoFocus
-                    required/>
-            </Form.Group>
-            <Form.Group className="mb-4">
-                <Form.Label>Imagen</Form.Label>
-                <Form.Control
-                    as="textarea"
-                    rows={3}
-                    placeholder="Url de Imagen"
-                    name="image"
-                    value={dataCategory.image}
-                    onChange = { handleChangeCategory} />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-                Cancelar
-            </Button>
-            <Button variant="success" type="submit" block>
-                Agregar
-            </Button>
-          </Modal.Footer>
-        </Form>
-      </Modal>
+        <CategoryModal 
+        show={show} 
+        handleSubmit={handleSubmit}
+        handleClose={handleClose} 
+        dataCategory={dataCategory}
+        setCategories={setCategories} 
+        error={error}
+        setDataCategory={setDataCategory}
+        setErrorPage={setErrorPage}
+        />
       {/* Modal that opens for editing  */}
-      <Modal show={showEdit} onHide={handleCloseEdit}>
-        <Modal.Header closeButton>
-            <Modal.Title>
-                Editar
-            </Modal.Title>
-        </Modal.Header>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmitEdit}>
-            <Modal.Body>
-              <Form.Group className="mb-4">
-                  <Form.Label>Título</Form.Label>
-                  <Form.Control
-                      type="text"
-                      placeholder="Titulo"
-                      name="title"
-                      value={dataCategoryEdit.title}
-                      onChange = { handleChangeCategoryEdit}
-                      autoFocus
-                      required />
-              </Form.Group>
-              <Form.Group className="mb-4">
-                  <Form.Label>Imagen</Form.Label>
-                  <Form.Control
-                      as="textarea"
-                      rows={3}
-                      placeholder="Url de Imagen"
-                      name="image"
-                      value={dataCategoryEdit.image}
-                      onChange = { handleChangeCategoryEdit} />
-              </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEdit}>
-              Cancelar
-          </Button>
-          <Button variant="success" type="submit" block>
-              Confirmar
-          </Button>
-        </Modal.Footer>
-        </Form>
-      </Modal>
+      <CategoryModal 
+        show={showEdit} 
+        handleSubmit={handleSubmitEdit}
+        handleClose={handleCloseEdit} 
+        dataCategory={dataCategoryEdit}
+        setCategories={setCategories} 
+        error={error}
+        setDataCategory={setDataCategoryEdit}
+        setErrorPage={setErrorPage}
+        />
     </>
     )
 }

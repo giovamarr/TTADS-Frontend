@@ -1,0 +1,33 @@
+.auth-container{
+    min-height : 80vh;
+    flex-direction: column;
+}
+.card-shadow{
+    box-shadow: 20px 20px 30px rgba(0,0,0,0.03);
+}
+.image-contain{ 
+    object-fit: contain;
+}
+.navbar-sale-products{
+    color: white;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(25%, 25%);
+}
+.navbar-rounded-icon{
+    width: 2.9rem;
+    height: 2.9rem;
+    position: relative;
+}
+.sale-side-bar-image{
+    width: 125px;
+    height: 75px; 
+    object-fit: cover;
+    border:1px solid #caccce;
+}
+.gap{
+    gap: .5rem;
+}
