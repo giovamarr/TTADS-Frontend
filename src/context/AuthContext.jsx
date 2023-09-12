@@ -29,46 +29,30 @@ export const AuthProvider = ({ children }) =>{
     localStorage.removeItem("jwt");
   };
 
-  function isAuthenticate () {
+  async function isAuthenticate () {
+    try{
     if (currentUser){
       return true
     }
     const token = localStorage.getItem("jwt");
     if (token){
-      localStorage.setItem("jwt", token);
-      setCurrentUser(token)
-      return true
-    }
-    return false
-  }
-
-
-
-
-  async function isAuth () {
-    if (currentUser){
-      return true
-    }
-    const token = localStorage.getItem("jwt");
-    if (token){
-      localStorage.setItem("jwt", token);
-      setCurrentUser(token)
-      if (!role){
-        const result = await getRole();
-        if (!result.ok){
-          setRole('client')
-        }else{
-          const res = await result.json()
-          setRole(res["role"])
-        }
+      const result = await getRole();
+      const res = await result.json()
+      if (!result.ok){
+        return false
       }
+      localStorage.setItem("jwt", token);
+      setCurrentUser(token)
+      setRole(res["role"])
       return true
     }
     return false
+  }catch{
+    return false
   }
-
+}
   return (
-    <AuthContext.Provider value={{isAuth, currentUser, loginUser, logout, role, isAuthenticate }}>
+    <AuthContext.Provider value={{currentUser, loginUser, logout, role, isAuthenticate }}>
       { children}
     </AuthContext.Provider>
   )
