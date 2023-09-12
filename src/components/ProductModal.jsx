@@ -17,7 +17,7 @@ const ProductModal = ({show, handleClose, dataProduct, setDataProduct, handleSub
     <Modal show={show} onHide={handleClose}>
     <Modal.Header closeButton>
         <Modal.Title>
-            Agregar
+            Product
         </Modal.Title>
     </Modal.Header>
       {error && <Alert variant="danger">{error}</Alert>}

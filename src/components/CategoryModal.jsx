@@ -15,7 +15,7 @@ const CategoryModal = ({show, handleClose, dataCategory, setDataCategory, handle
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
             <Modal.Title>
-                Agregar
+                Categoria
             </Modal.Title>
         </Modal.Header>
         {error && <Alert variant="danger">{error}</Alert>}

@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { register } from "../actions/auth.js";
 import { useNavigate } from "react-router-dom"
+import '../assets/css/styles.css'
 
 const Register = () => {
 //   const { login } = useAuth()
@@ -39,7 +40,7 @@ const Register = () => {
   };
 
   return (
-    <Container className="d-flex align-items-center justify-content-center w-100" style={{"min-height" : "80vh", "flex-direction": "column"}}>
+    <Container className="d-flex align-items-center justify-content-center w-100 auth-container">
       <Card className=" w-50">
         <Card.Body>
           <h2 className="text-center mb-4">Registrarse</h2>
